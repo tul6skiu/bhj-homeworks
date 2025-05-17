@@ -13,14 +13,16 @@ holesArray.forEach(hole => {
         }
           
         if (parseInt(deadCount.textContent) === 10) {
-            alert("Вы выйграли!");
-            deadCount.textContent = parseInt(0)
-            lostCount.textContent = parseInt(0);
+            reStart("Вы выйграли!")
         } else if (parseInt(lostCount.textContent) === 5) {
-            alert("Вы проиграли!");
-            deadCount.textContent = parseInt(0);
-            lostCount.textContent = parseInt(0);
+            reStart("Вы проиграли!")
         }
     
     })
 });
+
+function reStart(finishTextWhenGameEnd) {
+    alert(finishTextWhenGameEnd);
+    deadCount.textContent = parseInt(0)
+    lostCount.textContent = parseInt(0);
+}
