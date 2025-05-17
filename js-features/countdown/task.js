@@ -1,10 +1,9 @@
-
-const minusF = function() {
+const intervalId = setInterval(function() {
     const curretnTimer = document.getElementById("timer");
-    if(curretnTimer.textContent === 0) {
+    if(parseInt(curretnTimer.textContent) === 0) {
+        clearInterval(intervalId);
         alert("Вы победили в конкурсе");
     }else {
         curretnTimer.textContent = curretnTimer.textContent - 1;
     }
-}
-setInterval(minusF, 1000);
+}, 1000);
