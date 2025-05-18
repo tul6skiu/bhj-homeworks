@@ -3,13 +3,15 @@ const form = document.getElementById('tasks__form');
 const taskList = document.getElementById('tasks__list');
 const removes = Array.from(document.querySelectorAll('.task__remove'));
 
-btn.addEventListener('click', () => {
+btn.addEventListener('click', (event) => {
     const input = document.getElementById('task__input');
     const value = input.value.trim();
-
+    event.preventDefault();
+    debugger
     if (value !== '') {
         const task  = `<div class="task"><div class="task__title">${value}</div><a href="#" class="task__remove">&times;</a></div>`;
         taskList.insertAdjacentHTML('beforeEnd', task);
+        input.value = '';
     
     }
 });
