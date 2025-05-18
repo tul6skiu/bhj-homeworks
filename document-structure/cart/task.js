@@ -10,8 +10,10 @@ products.forEach(el => {
         let currentOperationIsPlus = event.target.classList.contains('product__quantity-control_inc');
         let operationMinus = event.target.classList.contains('product__quantity-control_dec');
      
+        if (!currentOperationIsPlus && !operationMinus) {return;}
         if (operationMinus && parseInt(currentValue.textContent) === 1) {
             currentValue.textContent = 1;
+            return;
         }
          if (currentOperationIsPlus) {
             currentValue.textContent = parseInt(currentValue.textContent) + 1;
@@ -55,7 +57,7 @@ function increaseIfAvailable(productId, newCount, product) {
 
 cart.addEventListener('click', function(event) {
     if (event.target.classList.contains('product__remove')) {
-        event.preventDefault();
+       
         const cartProduct = event.target.closest('.cart__product');
         if (cartProduct) {
             cartProduct.remove();
@@ -67,32 +69,19 @@ function isContains(productId) {
  return document.querySelector(`.cart__product[data-id="${productId}"]`) != null;
 
 }
+
 function createCartProduct(productId, imageSrc, count) {
-    const cartProduct = document.createElement('div');
-    cartProduct.classList.add('cart__product');
-    cartProduct.dataset.id = productId;
+    const template = `
+        <div class="cart__product" data-id="${productId}">
+            <img class="cart__product-image" src="${imageSrc}">
+            <div class="cart__product-count">${count}</div>
+            <div>
+                <a href="#" class="product__remove">&times;</a>
+            </div>
+        </div>
+    `;
 
- 
-    const img = document.createElement('img');
-    img.classList.add('cart__product-image');
-    img.src = imageSrc;
-
-
-    const countDiv = document.createElement('div');
-    countDiv.classList.add('cart__product-count');
-    countDiv.textContent = count;
-
-    const removeBlock = document.createElement('div');
-
-    const removeLink = document.createElement('a');
-    removeLink.href = '#';
-    removeLink.classList.add('product__remove');
-    removeLink.innerHTML = '&times;';
-    removeBlock.appendChild(removeLink);
-
-    cartProduct.appendChild(img);
-    cartProduct.appendChild(countDiv);
-    cartProduct.appendChild(removeBlock);
-
-    return cartProduct;
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = template.trim();
+    return wrapper.firstElementChild;
 }
